@@ -2,6 +2,8 @@ package java8.lambdaexpressions;
 
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
@@ -31,6 +33,22 @@ class Myclass1 {
 
 	public static int getValue() {
 		return 2000;
+	}
+
+	static boolean isPositive(int number) {
+		if (number >= 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	static boolean isNull(String str) {
+		if (str != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 
@@ -108,5 +126,39 @@ public class LambdaExpressionDemo9 {
 //		Method Ref
 		Supplier<Integer> supplier2 = Myclass1::getValue;
 		System.out.println("Method Ref: Supplier :: " + supplier2.get());
+
+//		Function<Integer, Boolean>
+		Function<Integer, Boolean> function = (number) -> {
+			if (number >= 0) {
+				return true;
+			} else {
+				return false;
+			}
+		};
+
+		System.out.println("Lambda:Function : 10 is positive? : " + function.apply(10));
+		System.out.println("Lambda:Function : -10 is positive? : " + function.apply(-10));
+
+//	
+		Function<Integer, Boolean> function2 = Myclass1::isPositive;
+		System.out.println("Method Ref : Function : 100 is positive?" + function2.apply(100));
+		System.out.println("Method Ref : Function : -100 is positive?" + function2.apply(-100));
+
+//		Predicate<T>
+		Predicate<String> predicate = (str) -> {
+			if (str != null) {
+				return true;
+			} else {
+				return false;
+			}
+		};
+
+		System.out.println("Lambda : Predicate: isNull? " + predicate.test(null));
+		System.out.println("Lambda : Predicate: isNull? " + predicate.test("Test"));
+
+//		Method Ref
+		Predicate<String> predicate2 = Myclass1::isNull;
+		System.out.println("Method Ref : Predicate: isNull? " + predicate2.test(null));
+		System.out.println("Method Ref : Predicate: isNull? " + predicate2.test("Test"));
 	}
 }
